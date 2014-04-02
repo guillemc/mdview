@@ -1,7 +1,7 @@
 {
     "require": {
         "silex/silex": "~1.1",
-        "michelf/php-markdown": "~1.4"
+        "erusev/parsedown": "dev-master"
     },
     "autoload": {
         "psr-0": {"MdView": "src/"}

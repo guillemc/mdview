@@ -2,10 +2,10 @@
 
 namespace MdView;
 
-use \Michelf\Markdown;
-
 class View
 {
+
+    private $parser;
 
     protected $name;
     protected $content;
@@ -16,6 +16,7 @@ class View
     {
         $this->name = $name;
         $this->content = $content;
+        $this->parser = new \Parsedown();
     }
 
     public function getName()
@@ -33,8 +34,7 @@ class View
         if (isset($this->html)) {
             return $this->html;
         }
-
-        $this->html = Markdown::defaultTransform($this->content);
+        $this->html = $this->parser->parse($this->content);
         return $this->html;
     }
 
