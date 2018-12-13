@@ -44,7 +44,12 @@ class View
             return $this->title;
         }
 
-        $parts = \preg_split("/[_\-]/", $this->name, -1, \PREG_SPLIT_NO_EMPTY);
+        $name = $this->name;
+        if (substr($name, -3) == '.md') {
+            $name = substr($name, 0, -3);
+        }
+        $name = str_replace('/', ' / ', $name);
+        $parts = \preg_split("/[_\-]/", $name, -1, \PREG_SPLIT_NO_EMPTY);
         $this->title = ucwords(implode(' ', $parts));
         return $this->title;
     }

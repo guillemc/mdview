@@ -11,12 +11,12 @@ $app = new Application();
 
 $app['view.path'] = __DIR__.'/../pages';
 $app['layout.path'] = __DIR__.'/../layouts';
-$app['view.default'] = 'index';
+$app['view.defaults'] = ['index.md', 'README.md'];
 $app['layout.default'] = 'main';
 $app['layout.error'] = 'error';
 
 $app['view.finder'] = $app->share(function ($app) {
-    return new MdView\Finder($app['view.path']);
+    return new MdView\Finder($app['view.path'], $app['view.defaults']);
 });
 
 $app['layout.engine'] = $app->share(function ($app) {
@@ -34,8 +34,7 @@ $app->get('/{pageName}', function ($pageName) use ($app) {
     }
     return $app['layout.engine']->render($view);
 })
-->value('pageName', $app['view.default'])
-->assert('pageName', '[0-9a-z_\-\/]+');
+->assert('pageName', '[0-9a-zA-Z_\-\/\.]*');
 
 
 
@@ -46,5 +45,3 @@ $app->error(function (\Exception $e, $code) use ($app) {
 });
 
 $app->run();
-
-
